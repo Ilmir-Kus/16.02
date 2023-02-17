@@ -14,16 +14,11 @@ public class SalesService {
     }
 
     public int calcAverageAmount(int[] amount) {  //средняя сумма
-        int avAmount = 0;
-        int sales = amount[0];
-        for (int i = 1; i < amount.length; i++) {
-            sales = sales + amount[i];
-        }
-        avAmount = sales / amount.length;
+        int avAmount = calcSales(amount) / amount.length;
         return avAmount;
     }
 
-    public int calcMaxMonth(int[] amount) {
+    public int calcMaxMonth(int[] amount) {  // макс. месяц
         int maxMonth = amount[0];
         for (int i = 0; i < amount.length; i++) {
             if (amount[i] > amount[maxMonth]) {
@@ -33,7 +28,7 @@ public class SalesService {
         return maxMonth;
     }
 
-    public int calcMinMonth(int[] amount) {
+    public int calcMinMonth(int[] amount) {  // мин. месяц
         int minMonth = amount[0];
         for (int i = 0; i < amount.length; i++) {
             if (amount[i] < amount[minMonth]) {
@@ -43,14 +38,9 @@ public class SalesService {
         return minMonth;
     }
 
-    public int calcAmountDownAverage(int[] amount) {
-        int avAmount = 0;
+    public int calcAmountDownAverage(int[] amount) {// кол-во месяцев ниже сред. значения
+        int avAmount = calcAverageAmount(amount);
         int amountDownAverage = 0;
-        int sales = amount[0];
-        for (int i = 1; i < amount.length; i++) {
-            sales = sales + amount[i];
-        }
-        avAmount = sales / amount.length;
         for (int i = 0; i < amount.length; i++) {
             if (amount[i] < avAmount) {
                 amountDownAverage++;
@@ -59,19 +49,14 @@ public class SalesService {
         return amountDownAverage;
     }
 
-    public int calcAmountUpAverage(int[] amount) {
-        int avAmount = 0;
-        int amountDownAverage = 0;
-        int sales = amount[0];
-        for (int i = 1; i < amount.length; i++) {
-            sales = sales + amount[i];
-        }
-        avAmount = sales / amount.length;
+    public int calcAmountUpAverage(int[] amount) {  // кол-во месяцев выше сред. значения
+        int avAmount = calcAverageAmount(amount);
+        int amountUpAverage = 0;
         for (int i = 0; i < amount.length; i++) {
             if (amount[i] > avAmount) {
-                amountDownAverage++;
+                amountUpAverage++;
             }
         }
-        return amountDownAverage;
+        return amountUpAverage;
     }
 }
